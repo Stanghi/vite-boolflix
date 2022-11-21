@@ -4,6 +4,7 @@ import { store } from './data/store';
 
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
+import AppTranding from './components/AppTranding.vue';
 
 export default {
     name: 'App',
@@ -16,6 +17,7 @@ export default {
     components: {
         AppHeader,
         AppMain,
+        AppTranding,
     },
     methods: {
         nextPages() {
@@ -32,17 +34,37 @@ export default {
         },
 
         reset() {
+            store.showTranding = true;
             store.inputSearch = '';
             store.resultsFound = [];
             store.numberFound = 0;
-            store.page = 1;
-            this.getApi();
+            this.getApiTranding();
+        },
+
+        getApiTranding() {
+            store.isLoaded = false;
+            axios
+                .get(store.apiUrlTranding, {
+                    params: {
+                        api_key: store.apiKey,
+                    },
+                })
+                .then((result) => {
+                    store.resultsTranding = result.data.results;
+                    store.isLoaded = true;
+                })
+                .catch((error) => {
+                    store.resultsTranding = [];
+                    store.isLoaded = true;
+                    console.log('error', error);
+                });
         },
 
         getApi(event = 'default') {
             if (event === 'search') {
                 store.page = 1;
             }
+            store.showTranding = false;
             store.isLoaded = false;
 
             axios
@@ -67,14 +89,17 @@ export default {
         },
     },
     mounted() {
-        this.getApi();
+        this.getApiTranding();
     },
 };
 </script>
 
 <template>
     <AppHeader @startSearch="getApi('search')" @reset="reset()" />
-    <AppMain @nextPage="nextPages()" @prevPage="prevPages()" />
+    <main>
+        <AppTranding v-if="store.showTranding" />
+        <AppMain v-else @nextPage="nextPages()" @prevPage="prevPages()" />
+    </main>
 </template>
 
 <style lang="scss">

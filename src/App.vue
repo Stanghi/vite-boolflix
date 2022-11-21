@@ -34,11 +34,15 @@ export default {
         reset() {
             store.inputSearch = '';
             store.resultsFound = [];
+            store.numberFound = 0;
             store.page = 1;
-            this.$emit('startSearch');
+            this.getApi();
         },
 
-        getApi() {
+        getApi(event = 'default') {
+            if (event === 'search') {
+                store.page = 1;
+            }
             store.isLoaded = false;
 
             axios
@@ -53,6 +57,7 @@ export default {
                     store.resultsFound = result.data.results;
                     this.apiData = result.data;
                     store.isLoaded = true;
+                    store.numberFound = result.data.total_results;
                 })
                 .catch((error) => {
                     store.resultsFound = [];
@@ -68,8 +73,8 @@ export default {
 </script>
 
 <template>
-    <AppHeader @startSearch="getApi()" @nextPage="nextPages()" @prevPage="prevPages()" @reset="reset()" />
-    <AppMain />
+    <AppHeader @startSearch="getApi('search')" @reset="reset()" />
+    <AppMain @nextPage="nextPages()" @prevPage="prevPages()" />
 </template>
 
 <style lang="scss">

@@ -3,11 +3,13 @@ import { store } from '../data/store';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
 import '/node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 import AppLoading from './AppLoading.vue';
+import AppCard from './AppCard.vue';
 
 export default {
     name: 'AppMain',
     components: {
         AppLoading,
+        AppCard,
     },
     data() {
         return {
@@ -18,94 +20,79 @@ export default {
 </script>
 
 <template>
-    <hr />
+    <!-- MOVIE -->
     <div v-if="store.isLoaded">
-        <!-- MOVIE -->
-        <div v-if="store.resultsFoundMovie.length > 0">
+        <div class="movie">
             <h3>Movie: {{ store.numberFoundMovie }} found in {{ store.numberPageMovie }} pag</h3>
-
             <button @click="$emit('prevPageMovie')" :disabled="store.pageMovie < 2">
                 Prev page
             </button>
             <button @click="$emit('nextPageMovie')">Next page</button>
             <p>Page: {{ store.pageMovie }}</p>
 
-            <ul v-for="(el, index) in store.resultsFoundMovie" :key="index">
-                <img
-                    :src="'https://image.tmdb.org/t/p/w92/' + el.poster_path"
-                    :alt="el.title || el.name"
-                />
-                <li><strong>title = </strong>{{ el.title || el.name }}</li>
-                <li>
-                    <strong>original_title = </strong>{{ el.original_title || el.original_name }}
-                </li>
-                <li>
-                    <span v-if="el.original_language === 'en'" class="fi fi-us"></span>
-                    <span v-else-if="el.original_language === 'ja'" class="fi fi-jp"></span>
-                    <span
-                        v-else-if="el.original_language"
-                        :class="'fi fi-' + el.original_language"
-                    ></span>
-                    <span v-else class="fi fi-xx"></span>
-                </li>
-                <li>
-                    <p v-for="(x, index) in Math.ceil(el.vote_average / 2)" :key="index">
-                        <i class="fa-solid fa-star"></i>
-                    </p>
-                </li>
-            </ul>
+            <div v-if="store.resultsFoundMovie.length > 0" class="movie-tv-area">
+                <div v-for="(el, index) in store.resultsFoundMovie" :key="index" class="ms-card">
+                    <AppCard :card="store.resultsFoundMovie[index]" />
+                </div>
+            </div>
         </div>
 
         <!-- TV -->
-        <div v-if="store.resultsFoundTv.length > 0">
-            <h3>Series: {{ store.numberFoundTv }} found in {{ store.numberPageTv }} pag</h3>
+        <div class="tv">
+            <div v-if="store.resultsFoundTv.length > 0">
+                <h3>Series: {{ store.numberFoundTv }} found in {{ store.numberPageTv }} pag</h3>
+                <button @click="$emit('prevPageTv')" :disabled="store.pageTv < 2">Prev page</button>
+                <button @click="$emit('nextPageTv')">Next page</button>
+                <p>Page: {{ store.pageTv }}</p>
 
-            <button @click="$emit('prevPageTv')" :disabled="store.pageTv < 2">Prev page</button>
-            <button @click="$emit('nextPageTv')">Next page</button>
-            <p>Page: {{ store.pageTv }}</p>
-
-            <ul v-for="(el, index) in store.resultsFoundTv" :key="index">
-                <img
-                    :src="'https://image.tmdb.org/t/p/w92/' + el.poster_path"
-                    :alt="el.title || el.name"
-                />
-                <li><strong>title = </strong>{{ el.title || el.name }}</li>
-                <li>
-                    <strong>original_title = </strong>{{ el.original_title || el.original_name }}
-                </li>
-                <li>
-                    <span v-if="el.original_language === 'en'" class="fi fi-us"></span>
-                    <span v-else-if="el.original_language === 'ja'" class="fi fi-jp"></span>
-                    <span
-                        v-else-if="el.original_language"
-                        :class="'fi fi-' + el.original_language"
-                    ></span>
-                    <span v-else class="fi fi-xx"></span>
-                </li>
-                <li>
-                    <p v-for="(x, index) in Math.ceil(el.vote_average / 2)" :key="index">
-                        <i class="fa-solid fa-star"></i>
-                    </p>
-                </li>
-            </ul>
+                <div v-if="store.resultsFoundTv.length > 0" class="movie-tv-area">
+                    <div v-for="(el, index) in store.resultsFoundTv" :key="index" class="ms-card">
+                        <AppCard :card="store.resultsFoundTv[index]" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <AppLoading v-else />
 </template>
 
 <style lang="scss" scoped>
-ul {
-    padding: 10px;
-    border: 1px solid black;
+#loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
-h2,
-h3 {
-    text-align: center;
+
+.ms-card {
+    width: calc(100% / 10 - 20px);
+    height: 250px;
+    margin-bottom: 15px;
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    margin: 10px;
+    box-shadow: 0px 0px 100px 1px rgba(255, 255, 255, 0.1);
+
+    &:hover {
+        scale: 1.5;
+        z-index: 2;
+    }
 }
-p {
-    display: inline-block;
+
+.movie-tv-area {
+    display: flex;
+    flex-wrap: wrap;
 }
-img {
-    display: block;
+
+.movie,
+.tv {
+    padding: 0 100px;
+    padding-top: 100px;
+}
+
+.tv {
+    margin-bottom: 100px;
 }
 </style>

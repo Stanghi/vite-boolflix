@@ -88,6 +88,7 @@ export default {
             font-size: 3rem;
             color: white;
             text-transform: uppercase;
+            font-weight: bold;
             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
             z-index: 998;
         }

@@ -2,6 +2,12 @@
 
 @import 'node_modules/bootstrap/scss/bootstrap';
 
+body {
+    background-color: black;
+    color: white;
+    min-height: 100vh;
+}
+
 .debug {
     background-color: rgba(255, 0, 0, 0.5);
     border: 1px solid black;

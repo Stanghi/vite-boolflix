@@ -5,68 +5,82 @@ export default {
 </script>
 
 <template>
-    <div class="lds-ellipsis">
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
+    <div class="loader-container">
+        <div class="loader"></div>
     </div>
 </template>
 
 <style lang="scss" scoped>
-.lds-ellipsis {
-    display: inline-block;
+.loader-container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loader {
+    width: 48px;
+    height: 48px;
+    margin: auto;
     position: relative;
-    width: 80px;
-    height: 80px;
 }
-.lds-ellipsis div {
+
+.loader:before {
+    content: '';
+    width: 48px;
+    height: 5px;
+    background: #f0808050;
     position: absolute;
-    top: 33px;
-    width: 13px;
-    height: 13px;
+    top: 60px;
+    left: 0;
     border-radius: 50%;
-    background: black;
-    animation-timing-function: cubic-bezier(0, 1, 1, 0);
+    animation: shadow324 0.5s linear infinite;
 }
-.lds-ellipsis div:nth-child(1) {
-    left: 8px;
-    animation: lds-ellipsis1 0.6s infinite;
+
+.loader:after {
+    content: '';
+    width: 100%;
+    height: 100%;
+    background: #f08080;
+    position: absolute;
+    top: 0;
+    left: 0;
+    border-radius: 4px;
+    animation: jump7456 0.5s linear infinite;
 }
-.lds-ellipsis div:nth-child(2) {
-    left: 8px;
-    animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(3) {
-    left: 32px;
-    animation: lds-ellipsis2 0.6s infinite;
-}
-.lds-ellipsis div:nth-child(4) {
-    left: 56px;
-    animation: lds-ellipsis3 0.6s infinite;
-}
-@keyframes lds-ellipsis1 {
-    0% {
-        transform: scale(0);
+
+@keyframes jump7456 {
+    15% {
+        border-bottom-right-radius: 3px;
     }
+
+    25% {
+        transform: translateY(9px) rotate(22.5deg);
+    }
+
+    50% {
+        transform: translateY(18px) scale(1, 0.9) rotate(45deg);
+        border-bottom-right-radius: 40px;
+    }
+
+    75% {
+        transform: translateY(9px) rotate(67.5deg);
+    }
+
     100% {
-        transform: scale(1);
+        transform: translateY(0) rotate(90deg);
     }
 }
-@keyframes lds-ellipsis3 {
-    0% {
-        transform: scale(1);
-    }
+
+@keyframes shadow324 {
+    0%,
     100% {
-        transform: scale(0);
+        transform: scale(1, 1);
     }
-}
-@keyframes lds-ellipsis2 {
-    0% {
-        transform: translate(0, 0);
-    }
-    100% {
-        transform: translate(24px, 0);
+
+    50% {
+        transform: scale(1.2, 1);
     }
 }
 </style>

@@ -23,6 +23,7 @@ export default {
     methods: {
         nextPagesMovie() {
             if (store.pageMovie < this.apiDataMovie.total_pages) {
+                store.resultsFoundMovie = [];
                 store.pageMovie++;
                 this.getApi();
             } else {
@@ -36,6 +37,7 @@ export default {
 
         nextPagesTv() {
             if (store.pageTv < this.apiDataTv.total_pages) {
+                store.resultsFoundTv = [];
                 store.pageTv++;
                 this.getApi();
             } else {
@@ -78,6 +80,8 @@ export default {
 
         getApi(event = 'default') {
             if (event === 'search') {
+                store.resultsFoundMovie = [];
+                store.resultsFoundTv = [];
                 store.pageMovie = 1;
                 store.pageTv = 1;
             }
@@ -137,7 +141,7 @@ export default {
 
 <template>
     <AppHeader @startSearch="getApi('search')" @reset="reset()" />
-    <main>
+    <main class="x">
         <AppTranding v-if="store.showTranding" />
         <AppMain
             v-else

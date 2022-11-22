@@ -11,8 +11,8 @@ export default {
     data() {
         return {
             store,
-            apiData: '',
-            ceiledVote: '',
+            apiDataMovie: '',
+            apiDataTv: '',
         };
     },
     components: {
@@ -21,24 +21,39 @@ export default {
         AppTranding,
     },
     methods: {
-        nextPages() {
-            if (store.page < this.apiData.total_pages) {
-                store.page++;
+        nextPagesMovie() {
+            if (store.pageMovie < this.apiDataMovie.total_pages) {
+                store.pageMovie++;
                 this.getApi();
             } else {
                 alert('no page found');
             }
         },
-        prevPages() {
-            store.page--;
+        prevPagesMovie() {
+            store.pageMovie--;
+            this.getApi();
+        },
+
+        nextPagesTv() {
+            if (store.pageTv < this.apiDataTv.total_pages) {
+                store.pageTv++;
+                this.getApi();
+            } else {
+                alert('no page found');
+            }
+        },
+        prevPagesTv() {
+            store.pageTv--;
             this.getApi();
         },
 
         reset() {
             store.showTranding = true;
             store.inputSearch = '';
-            store.resultsFound = [];
-            store.numberFound = 0;
+            store.resultsFoundMovie = [];
+            store.numberFoundMovie = 0;
+            store.resultsFoundTv = [];
+            store.numberFoundTv = 0;
             this.getApiTranding();
         },
 
@@ -63,28 +78,52 @@ export default {
 
         getApi(event = 'default') {
             if (event === 'search') {
-                store.page = 1;
+                store.pageMovie = 1;
+                store.pageTv = 1;
             }
             store.showTranding = false;
             store.isLoaded = false;
 
             axios
-                .get(store.apiUrl, {
+                .get(store.apiUrlMovie, {
                     params: {
                         api_key: store.apiKey,
                         query: store.inputSearch,
-                        page: store.page,
+                        page: store.pageMovie,
                         language: 'it-IT',
                     },
                 })
                 .then((result) => {
-                    store.resultsFound = result.data.results;
-                    this.apiData = result.data;
+                    store.resultsFoundMovie = result.data.results;
+                    this.apiDataMovie = result.data;
                     store.isLoaded = true;
-                    store.numberFound = result.data.total_results;
+                    store.numberFoundMovie = result.data.total_results;
+                    store.numberPageMovie = result.data.total_pages;
                 })
                 .catch((error) => {
-                    store.resultsFound = [];
+                    store.resultsFoundMovie = [];
+                    store.isLoaded = true;
+                    console.log('error', error);
+                });
+
+            axios
+                .get(store.apiUrlTv, {
+                    params: {
+                        api_key: store.apiKey,
+                        query: store.inputSearch,
+                        page: store.pageTv,
+                        language: 'it-IT',
+                    },
+                })
+                .then((result) => {
+                    store.resultsFoundTv = result.data.results;
+                    this.apiDataTv = result.data;
+                    store.isLoaded = true;
+                    store.numberFoundTv = result.data.total_results;
+                    store.numberPageTv = result.data.total_pages;
+                })
+                .catch((error) => {
+                    store.resultsFoundTv = [];
                     store.isLoaded = true;
                     console.log('error', error);
                 });
@@ -100,7 +139,13 @@ export default {
     <AppHeader @startSearch="getApi('search')" @reset="reset()" />
     <main>
         <AppTranding v-if="store.showTranding" />
-        <AppMain v-else @nextPage="nextPages()" @prevPage="prevPages()" />
+        <AppMain
+            v-else
+            @nextPageMovie="nextPagesMovie()"
+            @prevPageMovie="prevPagesMovie()"
+            @nextPageTv="nextPagesTv()"
+            @prevPageTv="prevPagesTv()"
+        />
     </main>
 </template>
 

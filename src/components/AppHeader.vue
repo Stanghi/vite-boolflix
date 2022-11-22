@@ -13,7 +13,12 @@ export default {
 
 <template>
     <header>
-        <input v-model.trim="store.inputSearch" @keyup.enter="$emit('startSearch')" type="text" placeholder="Search" />
+        <input
+            v-model.trim="store.inputSearch"
+            @keyup.enter="$emit('startSearch')"
+            type="text"
+            placeholder="Search"
+        />
 
         <button @click="$emit('startSearch')">Search</button>
         <button @click="$emit('reset')">Reset</button>

@@ -12,6 +12,7 @@ export default {
         return {
             store,
             apiData: '',
+            ceiledVote: '',
         };
     },
     components: {
@@ -73,6 +74,7 @@ export default {
                         api_key: store.apiKey,
                         query: store.inputSearch,
                         page: store.page,
+                        language: 'it-IT',
                     },
                 })
                 .then((result) => {

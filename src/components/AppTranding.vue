@@ -17,7 +17,7 @@ export default {
 <template>
     <h3>Di tendenza</h3>
     <ul v-for="(el, index) in store.resultsTranding" :key="index">
-        <img :src="'https://image.tmdb.org/t/p/w92/' + el.poster_path" />
+        <img :src="'https://image.tmdb.org/t/p/w300/' + el.backdrop_path" />
         <li><strong>title = </strong>{{ el.title || el.name }}</li>
         <li><strong>original_title = </strong>{{ el.original_title || el.original_name }}</li>
         <li>
@@ -26,7 +26,11 @@ export default {
             <span v-else-if="el.original_language" :class="'fi fi-' + el.original_language"></span>
             <span v-else class="fi fi-xx"></span>
         </li>
-        <li><strong>vote_average = </strong>{{ el.vote_average }}</li>
+        <li>
+            <p v-for="(x, index) in Math.ceil(el.vote_average / 2)" :key="index">
+                <i class="fa-solid fa-star"></i>
+            </p>
+        </li>
     </ul>
 </template>
 

@@ -1,6 +1,7 @@
 <script>
 import { store } from '../data/store';
 import '/node_modules/flag-icons/css/flag-icons.min.css';
+import '/node_modules/@fortawesome/fontawesome-free/css/all.min.css';
 import AppLoading from './AppLoading.vue';
 
 export default {
@@ -41,7 +42,11 @@ export default {
                     ></span>
                     <span v-else class="fi fi-xx"></span>
                 </li>
-                <li><strong>vote_average = </strong>{{ el.vote_average }}</li>
+                <li>
+                    <p v-for="(x, index) in Math.ceil(el.vote_average / 2)" :key="index">
+                        <i class="fa-solid fa-star"></i>
+                    </p>
+                </li>
             </ul>
         </div>
     </div>

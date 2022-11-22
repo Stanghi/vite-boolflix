@@ -47,6 +47,7 @@ export default {
                         :alt="el.title || el.name"
                     />
                     <h2 class="title">{{ el.title || el.name }}</h2>
+                    <p>{{ index + 1 }}° in trending now</p>
                 </div>
             </div>
         </div>
@@ -72,10 +73,9 @@ export default {
 
 <style lang="scss" scoped>
 .carousel-inner {
-    position: relative;
-
     .carousel-item {
-        height: calc(100vh - 30px);
+        height: 100vh;
+        width: 100vw;
 
         img {
             object-fit: contain;
@@ -83,13 +83,33 @@ export default {
 
         .title {
             position: absolute;
-            bottom: 50px;
-            left: 50px;
+            bottom: 100px;
+            left: 100px;
             font-size: 3rem;
             color: white;
             text-transform: uppercase;
             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+            z-index: 998;
         }
+
+        p {
+            z-index: 998;
+            position: absolute;
+            bottom: 50px;
+            left: 100px;
+            color: white;
+            text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+        }
+    }
+
+    .carousel-item::after {
+        box-shadow: inset -0px -150px 200px 0px rgba(0, 0, 0, 0.9);
+        content: '';
+        display: block;
+        height: 100%;
+        position: absolute;
+        top: 0;
+        width: 100%;
     }
 }
 
@@ -105,16 +125,18 @@ export default {
     padding: 10px;
     border-radius: 50%;
     cursor: pointer;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(58, 56, 56, 0.3);
+    backdrop-filter: blur(13.8px);
+    -webkit-backdrop-filter: blur(13.8px);
 }
 
 .circle.next {
     color: white;
-    right: 5%;
+    right: 100px;
 }
 .circle.prev {
     color: white;
-    left: 5%;
+    left: 100px;
 }
 
 .circle:hover {

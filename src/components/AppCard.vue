@@ -126,7 +126,7 @@ export default {
         }
 
         ::-webkit-scrollbar {
-            width: 1px;
+            width: 3px;
         }
 
         ::-webkit-scrollbar-thumb {

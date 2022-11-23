@@ -67,6 +67,10 @@ header {
         button {
             width: 35px;
             border-radius: 50%;
+
+            i {
+                font-size: 0.9rem;
+            }
         }
 
         input::placeholder {

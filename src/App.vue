@@ -5,6 +5,7 @@ import { store } from './data/store';
 import AppHeader from './components/AppHeader.vue';
 import AppMain from './components/AppMain.vue';
 import AppTranding from './components/AppTranding.vue';
+import AppSearchError from './components/AppSearchError.vue';
 
 export default {
     name: 'App',
@@ -19,6 +20,7 @@ export default {
         AppHeader,
         AppMain,
         AppTranding,
+        AppSearchError,
     },
     methods: {
         nextPagesMovie() {
@@ -139,12 +141,21 @@ export default {
     <AppHeader @startSearch="getApi('search')" @reset="reset()" />
     <main class="x">
         <AppTranding v-if="store.showTranding" />
+
         <AppMain
             v-else
             @nextPageMovie="nextPagesMovie()"
             @prevPageMovie="prevPagesMovie()"
             @nextPageTv="nextPagesTv()"
             @prevPageTv="prevPagesTv()"
+        />
+        <AppSearchError
+            v-if="
+                store.resultsFoundMovie.length === 0 &&
+                store.resultsFoundTv.length === 0 &&
+                !store.showTranding
+            "
+            @reset="reset()"
         />
     </main>
 </template>

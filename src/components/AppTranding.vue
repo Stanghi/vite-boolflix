@@ -78,7 +78,8 @@ export default {
         width: 100vw;
 
         img {
-            object-fit: contain;
+            object-fit: cover;
+            height: 100vh;
         }
 
         .title {

@@ -26,8 +26,6 @@ export default {
                 store.resultsFoundMovie = [];
                 store.pageMovie++;
                 this.getApi();
-            } else {
-                alert('no page found');
             }
         },
         prevPagesMovie() {
@@ -40,8 +38,6 @@ export default {
                 store.resultsFoundTv = [];
                 store.pageTv++;
                 this.getApi();
-            } else {
-                alert('no page found');
             }
         },
         prevPagesTv() {

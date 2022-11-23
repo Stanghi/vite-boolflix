@@ -101,16 +101,16 @@ export default {
             color: white;
             text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
         }
-    }
 
-    .carousel-item::after {
-        box-shadow: inset -0px -150px 200px 0px rgba(0, 0, 0, 0.9);
-        content: '';
-        display: block;
-        height: 100%;
-        position: absolute;
-        top: 0;
-        width: 100%;
+        &::after {
+            box-shadow: inset -0px -150px 200px 0px rgba(0, 0, 0, 0.9);
+            content: '';
+            display: block;
+            height: 100%;
+            position: absolute;
+            top: 0;
+            width: 100%;
+        }
     }
 }
 
@@ -129,18 +129,18 @@ export default {
     background-color: rgba(58, 56, 56, 0.3);
     backdrop-filter: blur(13.8px);
     -webkit-backdrop-filter: blur(13.8px);
-}
 
-.circle.next {
-    color: white;
-    right: 100px;
-}
-.circle.prev {
-    color: white;
-    left: 100px;
-}
+    &.next {
+        color: white;
+        right: 100px;
+    }
+    &.prev {
+        color: white;
+        left: 100px;
+    }
 
-.circle:hover {
-    background-color: rgba(0, 0, 0, 0.5);
+    &:hover {
+        background-color: rgba(58, 56, 56, 0.5);
+    }
 }
 </style>

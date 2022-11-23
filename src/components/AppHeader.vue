@@ -12,7 +12,7 @@ export default {
 </script>
 
 <template>
-    <header>
+    <header :class="!store.showTranding && 'background'">
         <div class="ms-container">
             <div class="logo">
                 <img src="/logo-boolflix.png" alt="logo" @click="$emit('reset')" />
@@ -61,10 +61,12 @@ header {
             padding-left: 20px;
             margin-right: 10px;
             outline: none;
+            border-radius: 30px;
         }
 
         button {
             width: 35px;
+            border-radius: 50%;
         }
 
         input::placeholder {
@@ -75,7 +77,6 @@ header {
         button {
             border: none;
             height: 35px;
-            border-radius: 30px;
             color: white;
             background-color: rgba(58, 56, 56, 0.3);
             backdrop-filter: blur(13.8px);
@@ -83,8 +84,13 @@ header {
         }
 
         button:hover {
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(58, 56, 56, 0.5);
         }
     }
+}
+.background {
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(13.8px);
+    -webkit-backdrop-filter: blur(13.8px);
 }
 </style>

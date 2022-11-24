@@ -42,7 +42,7 @@ export default {
     content: '';
     width: 100%;
     height: 100%;
-    background: #f08080;
+    background: #dc1a28;
     position: absolute;
     top: 0;
     left: 0;

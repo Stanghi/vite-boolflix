@@ -25,7 +25,9 @@ export default {
         <div class="movie" v-if="store.resultsFoundMovie.length > 0">
             <h3>
                 Movies
-                <span>{{ store.numberFoundMovie }} found in {{ store.numberPageMovie }} pag</span>
+                <span
+                    >{{ store.numberFoundMovie }} founds in {{ store.numberPageMovie }} pages</span
+                >
             </h3>
             <div v-if="store.resultsFoundMovie.length > 0" class="movie-tv-area">
                 <div v-for="(el, index) in store.resultsFoundMovie" :key="index" class="ms-card">
@@ -52,7 +54,7 @@ export default {
         <div class="tv" v-if="store.resultsFoundTv.length > 0">
             <h3>
                 Series
-                <span>{{ store.numberFoundTv }} found in {{ store.numberPageTv }} pag</span>
+                <span>{{ store.numberFoundTv }} founds in {{ store.numberPageTv }} pages</span>
             </h3>
             <div v-if="store.resultsFoundTv.length > 0" class="movie-tv-area">
                 <div v-for="(el, index) in store.resultsFoundTv" :key="index" class="ms-card">
@@ -86,7 +88,7 @@ export default {
     border-radius: 10px;
     overflow: hidden;
     margin: 15px;
-    box-shadow: 0px 0px 100px 1px rgba(255, 255, 255, 0.1);
+    box-shadow: 0px 0px 35px 1px rgba(255, 255, 255, 0.1);
 
     &:hover {
         scale: 1.5;
@@ -105,7 +107,7 @@ export default {
         width: 80px;
         height: 35px;
         border-radius: 30px;
-        box-shadow: 0px 0px 100px 1px rgba(255, 255, 255, 0.1);
+        box-shadow: 0px 0px 35px 1px rgba(255, 255, 255, 0.1);
         backdrop-filter: blur(13.8px);
         -webkit-backdrop-filter: blur(13.8px);
         color: white;
